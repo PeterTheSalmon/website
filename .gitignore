@@ -1,3 +1,4 @@
 /.DS_Store
 themes/.DS_Store
 themes/PaperMod
+.hugo_build.lock
