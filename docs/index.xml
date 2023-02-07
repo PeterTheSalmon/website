@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Peter Salmon</title>
-    <link>https://peterthesalmon.github.io/website/</link>
+    <link>https://peterthesalmon.github.io/Website/</link>
     <description>Recent content on Peter Salmon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Feb 2023 16:00:00 -0800</lastBuildDate><atom:link href="https://peterthesalmon.github.io/website/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Feb 2023 16:00:00 -0800</lastBuildDate><atom:link href="https://peterthesalmon.github.io/Website/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Applications of Fpdart - functional programming with Flutter</title>
-      <link>https://peterthesalmon.github.io/website/posts/applications-of-fpdart/</link>
+      <link>https://peterthesalmon.github.io/Website/posts/applications-of-fpdart/</link>
       <pubDate>Wed, 01 Feb 2023 16:00:00 -0800</pubDate>
       
-      <guid>https://peterthesalmon.github.io/website/posts/applications-of-fpdart/</guid>
+      <guid>https://peterthesalmon.github.io/Website/posts/applications-of-fpdart/</guid>
       <description>Functional programming has been garnering more attention in recent years, for good reason: it&amp;rsquo;s a tool for writing more predicatable and readable code. I won&amp;rsquo;t go into the details here - many, many, articles have covered that already. If you are looking for an intro, though, this reddit comment may prove helpful.
 This post explains how I&amp;rsquo;ve incorporated aspects of functional programming into my Flutter projects with Fpdart. Each section includes an example of how a feature from the package can be used, as well as any potential downsides and considerations.</description>
     </item>

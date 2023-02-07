@@ -10,15 +10,15 @@
 <meta name="description" content="Functional programming has been garnering more attention in recent years, for good reason: it&rsquo;s a tool for writing more predicatable and readable code. I won&rsquo;t go into the details here - many, many, articles have covered that already. If you are looking for an intro, though, this reddit comment may prove helpful.
 This post explains how I&rsquo;ve incorporated aspects of functional programming into my Flutter projects with Fpdart. Each section includes an example of how a feature from the package can be used, as well as any potential downsides and considerations.">
 <meta name="author" content="Peter Salmon">
-<link rel="canonical" href="https://peterthesalmon.github.io/website/posts/applications-of-fpdart/">
-<link crossorigin="anonymous" href="/website/assets/css/stylesheet.bccfefac377bc340f06c260aed1bddf49a4354816d7c570d6aac75a997986c95.css" integrity="sha256-vM/vrDd7w0DwbCYK7Rvd9JpDVIFtfFcNaqx1qZeYbJU=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/website/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+<link rel="canonical" href="https://peterthesalmon.github.io/Website/posts/applications-of-fpdart/">
+<link crossorigin="anonymous" href="/Website/assets/css/stylesheet.bccfefac377bc340f06c260aed1bddf49a4354816d7c570d6aac75a997986c95.css" integrity="sha256-vM/vrDd7w0DwbCYK7Rvd9JpDVIFtfFcNaqx1qZeYbJU=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/Website/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="https://peterthesalmon.github.io/website/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://peterthesalmon.github.io/website/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://peterthesalmon.github.io/website/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://peterthesalmon.github.io/website/apple-touch-icon.png">
-<link rel="mask-icon" href="https://peterthesalmon.github.io/website/safari-pinned-tab.svg">
+<link rel="icon" href="https://peterthesalmon.github.io/Website/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://peterthesalmon.github.io/Website/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://peterthesalmon.github.io/Website/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://peterthesalmon.github.io/Website/apple-touch-icon.png">
+<link rel="mask-icon" href="https://peterthesalmon.github.io/Website/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <noscript>
@@ -61,7 +61,7 @@ This post explains how I&rsquo;ve incorporated aspects of functional programming
 <meta property="og:description" content="Functional programming has been garnering more attention in recent years, for good reason: it&rsquo;s a tool for writing more predicatable and readable code. I won&rsquo;t go into the details here - many, many, articles have covered that already. If you are looking for an intro, though, this reddit comment may prove helpful.
 This post explains how I&rsquo;ve incorporated aspects of functional programming into my Flutter projects with Fpdart. Each section includes an example of how a feature from the package can be used, as well as any potential downsides and considerations." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://peterthesalmon.github.io/website/posts/applications-of-fpdart/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://peterthesalmon.github.io/Website/posts/applications-of-fpdart/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-02-01T16:00:00-08:00" />
 <meta property="article:modified_time" content="2023-02-01T16:00:00-08:00" />
 
@@ -80,13 +80,13 @@ This post explains how I&rsquo;ve incorporated aspects of functional programming
       "@type": "ListItem",
       "position":  2 ,
       "name": "Posts",
-      "item": "https://peterthesalmon.github.io/website/posts/"
+      "item": "https://peterthesalmon.github.io/Website/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  3 ,
       "name": "Applications of Fpdart - functional programming with Flutter",
-      "item": "https://peterthesalmon.github.io/website/posts/applications-of-fpdart/"
+      "item": "https://peterthesalmon.github.io/Website/posts/applications-of-fpdart/"
     }
   ]
 }
@@ -112,14 +112,14 @@ This post explains how I&rsquo;ve incorporated aspects of functional programming
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://peterthesalmon.github.io/website/posts/applications-of-fpdart/"
+    "@id": "https://peterthesalmon.github.io/Website/posts/applications-of-fpdart/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Peter Salmon",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://peterthesalmon.github.io/website/favicon.ico"
+      "url": "https://peterthesalmon.github.io/Website/favicon.ico"
     }
   }
 }
@@ -141,7 +141,7 @@ This post explains how I&rsquo;ve incorporated aspects of functional programming
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://peterthesalmon.github.io/website" accesskey="h" title="Peter Salmon (Alt + H)">Peter Salmon</a>
+            <a href="https://peterthesalmon.github.io/Website" accesskey="h" title="Peter Salmon (Alt + H)">Peter Salmon</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -167,7 +167,7 @@ This post explains how I&rsquo;ve incorporated aspects of functional programming
         </div>
         <ul id="menu">
             <li>
-                <a href="https://peterthesalmon.github.io/website/search" title="Search (Alt &#43; /)" accesskey=/>
+                <a href="https://peterthesalmon.github.io/Website/search" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
                 </a>
             </li>
@@ -178,7 +178,7 @@ This post explains how I&rsquo;ve incorporated aspects of functional programming
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="https://peterthesalmon.github.io/website">Home</a>&nbsp;»&nbsp;<a href="https://peterthesalmon.github.io/website/posts/">Posts</a></div>
+    <div class="breadcrumbs"><a href="https://peterthesalmon.github.io/Website">Home</a>&nbsp;»&nbsp;<a href="https://peterthesalmon.github.io/Website/posts/">Posts</a></div>
     <h1 class="post-title">
       Applications of Fpdart - functional programming with Flutter
     </h1>
@@ -380,7 +380,7 @@ This post explains how I&rsquo;ve incorporated aspects of functional programming
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://peterthesalmon.github.io/website">Peter Salmon</a></span>
+    <span>&copy; 2023 <a href="https://peterthesalmon.github.io/Website">Peter Salmon</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
