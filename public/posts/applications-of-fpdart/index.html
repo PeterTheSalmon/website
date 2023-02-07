@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Applications of Fpdart - functional programming with Flutter | Peter Salmon</title>
+<meta name="keywords" content="">
+<meta name="description" content="Functional programming has been garnering more attention in recent years, for good reason: it&rsquo;s a tool for writing more predicatable and readable code. I won&rsquo;t go into the details here - many, many, articles have covered that already. If you are looking for an intro, though, this reddit comment may prove helpful.
+This post explains how I&rsquo;ve incorporated aspects of functional programming into my Flutter projects with Fpdart. Each section includes an example of how a feature from the package can be used, as well as any potential downsides and considerations.">
+<meta name="author" content="Peter Salmon">
+<link rel="canonical" href="https://peterthesalmon.github.io/website/posts/applications-of-fpdart/">
+<link crossorigin="anonymous" href="/website/assets/css/stylesheet.bccfefac377bc340f06c260aed1bddf49a4354816d7c570d6aac75a997986c95.css" integrity="sha256-vM/vrDd7w0DwbCYK7Rvd9JpDVIFtfFcNaqx1qZeYbJU=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/website/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://peterthesalmon.github.io/website/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://peterthesalmon.github.io/website/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://peterthesalmon.github.io/website/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://peterthesalmon.github.io/website/apple-touch-icon.png">
+<link rel="mask-icon" href="https://peterthesalmon.github.io/website/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Applications of Fpdart - functional programming with Flutter" />
+<meta property="og:description" content="Functional programming has been garnering more attention in recent years, for good reason: it&rsquo;s a tool for writing more predicatable and readable code. I won&rsquo;t go into the details here - many, many, articles have covered that already. If you are looking for an intro, though, this reddit comment may prove helpful.
+This post explains how I&rsquo;ve incorporated aspects of functional programming into my Flutter projects with Fpdart. Each section includes an example of how a feature from the package can be used, as well as any potential downsides and considerations." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://peterthesalmon.github.io/website/posts/applications-of-fpdart/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-02-01T16:00:00-08:00" />
+<meta property="article:modified_time" content="2023-02-01T16:00:00-08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Applications of Fpdart - functional programming with Flutter"/>
+<meta name="twitter:description" content="Functional programming has been garnering more attention in recent years, for good reason: it&rsquo;s a tool for writing more predicatable and readable code. I won&rsquo;t go into the details here - many, many, articles have covered that already. If you are looking for an intro, though, this reddit comment may prove helpful.
+This post explains how I&rsquo;ve incorporated aspects of functional programming into my Flutter projects with Fpdart. Each section includes an example of how a feature from the package can be used, as well as any potential downsides and considerations."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://peterthesalmon.github.io/website/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Applications of Fpdart - functional programming with Flutter",
+      "item": "https://peterthesalmon.github.io/website/posts/applications-of-fpdart/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Applications of Fpdart - functional programming with Flutter",
+  "name": "Applications of Fpdart - functional programming with Flutter",
+  "description": "Functional programming has been garnering more attention in recent years, for good reason: it\u0026rsquo;s a tool for writing more predicatable and readable code. I won\u0026rsquo;t go into the details here - many, many, articles have covered that already. If you are looking for an intro, though, this reddit comment may prove helpful.\nThis post explains how I\u0026rsquo;ve incorporated aspects of functional programming into my Flutter projects with Fpdart. Each section includes an example of how a feature from the package can be used, as well as any potential downsides and considerations.",
+  "keywords": [
+    
+  ],
+  "articleBody": "Functional programming has been garnering more attention in recent years, for good reason: it’s a tool for writing more predicatable and readable code. I won’t go into the details here - many, many, articles have covered that already. If you are looking for an intro, though, this reddit comment may prove helpful.\nThis post explains how I’ve incorporated aspects of functional programming into my Flutter projects with Fpdart. Each section includes an example of how a feature from the package can be used, as well as any potential downsides and considerations.\nOption More control of null values If you’ve used Riverpod, the following code will feel very familiar - let’s start with an immutable Person class that includes a name and, optionally, an age:\nclass Person { final String name; final int? age; Person(this.name, this.age); } Next, we’ll add a copyWith method to easily create a new instance of Person with some of the fields changed:\nclass Person { final String name; final int? age; Person(this.name, this.age); Person copyWith({String? name, int? age}) { return Person( name ?? this.name, age ?? this.age, ); } } Now, take a look at the following code:\nvar steve = Person('Steve'); steve = steve.copyWith(age: 30); This creates a person, steve, with no specified age, then creates a new instance of Person with the same name but an age of 30. This is a common pattern in Flutter.\nWhat if we wantted to change the age back to null? Your first thought may be the following:\nsteve = steve.copyWith(age: null); However, age will remain 30, because the copyWith method above only changes the value if the new value is not null.\nprint(steve.age); // prints \"30\", even after the copyWith call The Option type from Fpdart helps to address this issue. It’s a wrapper around a value that can either be Some or None, which can be used instead of nullable types.\n// Creating an Option with a value of `None` Option\u003cString\u003e data = None(); // Updating the value to `Some` data = Some('Hello, world!'); If we were to use Option in the Person class above, we could change the age field to be of type Option:\nclass Person { final String name; final Option\u003cint\u003e age; Person(this.name, [this.age = None()]); } Next, we can add the copyWith method again, using the Option type:\nclass Person { final String name; final Option\u003cint\u003e age; Person(this.name, [this.age = None()]); Person copyWith({String? name, Option\u003cint\u003e? age}) { return Person( name ?? this.name, age ?? this.age, ); } } Now, it is possible to change the age from a value to None:\nvar steve = Person('Steve'); steve = steve.copyWith(age: Some(30)); print(steve.age); // prints \"Some(30)\" steve = steve.copyWith(age: None()); print(steve.age); // prints \"None\" To actually use the value contained in an Option, there are a few methods available:\nfinal option = Some(5); // Implicit `Option` // Returns the value if it is `Some`, otherwise returns the default value // Similar to the `??` operator final value = option.getOrElse(() =\u003e 0); // value = 5 final triple = option.match( () =\u003e 0, // Called if `None` (value) =\u003e value * 3, // Called if `Some` ); // triple = 15 final nullable = option.toNullable(); // nullable is an `int?` with a value of 5 Option can also be converted to an Either, another type from Fpdart (explained in more detail below):\n// Converts to an `Either with a value of `Right(5)` // If the value was `None`, the `Either` would be `Left('No value')` final either = option.toEither(() =\u003e 'No value'); Many more methods can be found in the Fpdart docs.\nDownsides Using Option can be a bit more verbose when compared to using nullable types. It adds a small amount of boilerplate and means you can not use the ?? operator to set a default value (though getOrElse is a similar alternative). In my experience, though, the benefits far outweigh the downsides.\nEither Error handling without exceptions Error handling in Dart is painful. The main problem for me is that it’s unclear as to whether a function can throw an error or not unless you read the implementation or see it mentioned in the docs. Combined with the somewhat awkward syntax for try/catch blocks, it is far from a great experience.\nEither is a type from Fpdart that can be used to handle errors in a more functional way. It’s a wrapper around a value that can either be Left or Right, which can be used instead of throwing exceptions. Typically, Left is used to represent an error, and Right is used to represent a successful result.\nLet’s say we have a function that can throw an error called fetchFromDatabase. Instead of just hoping the error is caught, we can wrap the result in an Either, where Left will be a string, used to represent an error, and Right will be an int, used to represent a successful result that was fetched from the database:\nEither\u003cString, int\u003e fetchFromDatabase() async { try { // This could be a firebase call, a network request, // or anything else that could throw an error final int data = await database.fetchData(); // Assuming the data was successfully fetched, // we return it wrapped in `Right` return Right(data); } catch (error) { // If an error was thrown, we return it wrapped in `Left` return Left(error.toString()); } } It’s now very clear that fetchFromDatabase can throw an error, and it’s also much easier to handle the with pattern matching:\nfinal result = await fetchFromDatabase(); // Pattern matching result.match( (error) =\u003e print(error), // Called if `Left` (data) =\u003e print('Data found: $data'), // Called if `Right` ); Either can also be converted to an Option (explained in more detail above):\nfinal either = Either\u003cString, int\u003e.of(5); // Converts to an `Option` with a value of `Some(5)` // If the value was `Left`, the `Option` would be `None`, // no matter what the value was final option = either.toOption(); Downsides Due to exceptions being built into the language and found in many libraries, it can be difficult to be consistent with how you handle them when you introduce Either. It is possible to wrap the result of any throwing functions in an Either, but this will add more boilerplate to your code.\nTuple Multiple values without a class Returning multiple values from a function can be accomplished by creating a convenience class, but this tends to add unneeded verbosity. Tuple2 (because it holds 2 values) is a type from Fpdart that can be used to return multiple values from a function without creating a class.\nIn this example, we are fetching data from a database, and we want to return the data and the time it took to fetch it. We can use Tuple2 to do this:\nTuple2\u003cint, Duration\u003e fetchFromDatabase() async { final stopwatch = Stopwatch()..start(); // This could be a firebase call, a network request, etc. final int data = await database.fetchData(); stopwatch.stop(); return Tuple2(data, stopwatch.elapsed); } The values can then be accessed using the first and second properties:\nfinal result = await fetchFromDatabase(); print(result.first); // Prints the data print(result.second); // Prints the duration Downsides It can be unclear as to what the values represent, so it’s best to use a class if you need named parameters. Tuple2 is also limited to holding 2 values, so it’s not a good fit for more complex use cases.\nNote that Dart 3 will introduce the Record type, which provides similar functionality to Tuple2 but with more flexibility, including more than two values and named parameters.\nThe Rest Fpdart includes over 20 types and extensions, only three of which have been covered here. While the other types certainly have uses, I haven’t found many situations in which my code has been signifigantly improved. Either way (pun intended), you can view examples for all of the types in the Fpdart docs and in the example folder of the GitHub repository. 🐟\n",
+  "wordCount" : "1315",
+  "inLanguage": "en",
+  "datePublished": "2023-02-01T16:00:00-08:00",
+  "dateModified": "2023-02-01T16:00:00-08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Peter Salmon"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://peterthesalmon.github.io/website/posts/applications-of-fpdart/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Peter Salmon",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://peterthesalmon.github.io/website/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://peterthesalmon.github.io/website" accesskey="h" title="Peter Salmon (Alt + H)">Peter Salmon</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://peterthesalmon.github.io/website/search" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://peterthesalmon.github.io/website">Home</a>&nbsp;»&nbsp;<a href="https://peterthesalmon.github.io/website/posts/">Posts</a></div>
+    <h1 class="post-title">
+      Applications of Fpdart - functional programming with Flutter
+    </h1>
+    <div class="post-meta"><span title='2023-02-01 16:00:00 -0800 PST'>February 1, 2023</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;1315 words&nbsp;·&nbsp;Peter Salmon&nbsp;|&nbsp;<a href="https://github.com/PeterTheSalmon/Website/tree/main/content/posts/applications-of-fpdart.md" rel="noopener noreferrer" target="_blank">Suggest Changes</a>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#option">Option</a>
+      <ul>
+        <li><a href="#more-control-of-null-values">More control of null values</a></li>
+        <li><a href="#downsides">Downsides</a></li>
+      </ul>
+    </li>
+    <li><a href="#either">Either</a>
+      <ul>
+        <li><a href="#error-handling-without-exceptions">Error handling without exceptions</a></li>
+        <li><a href="#downsides-1">Downsides</a></li>
+      </ul>
+    </li>
+    <li><a href="#tuple">Tuple</a>
+      <ul>
+        <li><a href="#multiple-values-without-a-class">Multiple values without a class</a></li>
+        <li><a href="#downsides-2">Downsides</a></li>
+      </ul>
+    </li>
+    <li><a href="#the-rest">The Rest</a></li>
+  </ul>
+</nav>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>Functional programming has been garnering more attention in recent years, for good reason: it&rsquo;s a tool for writing more predicatable and readable code. I won&rsquo;t go into the details here - many, <em>many</em>, articles have covered that already. If you are looking for an intro, though, <a href="https://www.reddit.com/r/explainlikeimfive/comments/msmot/comment/c33msb8/?utm_source=share&amp;utm_medium=web2x&amp;context=3">this reddit comment</a> may prove helpful.</p>
+<p>This post explains how I&rsquo;ve incorporated aspects of functional programming into my Flutter projects with <a href="https://pub.dev/packages/fpdart">Fpdart</a>. Each section includes an example of how a feature from the package can be used, as well as any potential downsides and considerations.</p>
+<h2 id="option">Option<a hidden class="anchor" aria-hidden="true" href="#option">#</a></h2>
+<h3 id="more-control-of-null-values">More control of null values<a hidden class="anchor" aria-hidden="true" href="#more-control-of-null-values">#</a></h3>
+<p>If you&rsquo;ve used <a href="https://riverpod.dev/">Riverpod</a>, the following code will feel very familiar - let&rsquo;s start with an immutable <code>Person</code> class that includes a name and, optionally, an age:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dart" data-lang="dart"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">String</span> name;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">?</span> age;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Person(<span style="color:#66d9ef">this</span>.name, <span style="color:#66d9ef">this</span>.age);
+</span></span><span style="display:flex;"><span>}   
+</span></span></code></pre></div><p>Next, we&rsquo;ll add a <code>copyWith</code> method to easily create a new instance of <code>Person</code> with some of the fields changed:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-dart" data-lang="dart"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">String</span> name;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">?</span> age;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Person(<span style="color:#66d9ef">this</span>.name, <span style="color:#66d9ef">this</span>.age);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex; background-color:#3c3d38"><span>    Person copyWith({<span style="color:#66d9ef">String</span><span style="color:#f92672">?</span> name, <span style="color:#66d9ef">int</span><span style="color:#f92672">?</span> age}) {
+</span></span><span style="display:flex; background-color:#3c3d38"><span>        <span style="color:#66d9ef">return</span> Person(
+</span></span><span style="display:flex; background-color:#3c3d38"><span>            name <span style="color:#f92672">??</span> <span style="color:#66d9ef">this</span>.name,
+</span></span><span style="display:flex; background-color:#3c3d38"><span>            age <span style="color:#f92672">??</span> <span style="color:#66d9ef">this</span>.age,
+</span></span><span style="display:flex; background-color:#3c3d38"><span>        );
+</span></span><span style="display:flex; background-color:#3c3d38"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Now, take a look at the following code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dart" data-lang="dart"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> steve <span style="color:#f92672">=</span> Person(<span style="color:#e6db74">&#39;Steve&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>steve <span style="color:#f92672">=</span> steve.copyWith(age: <span style="color:#ae81ff">30</span>);
+</span></span></code></pre></div><p>This creates a person, <code>steve</code>, with no specified age, then creates a new instance of <code>Person</code> with the same name but an age of 30. This is a common pattern in Flutter.</p>
+<p>What if we wantted to change the age back to null? Your first thought may be the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dart" data-lang="dart"><span style="display:flex;"><span>steve <span style="color:#f92672">=</span> steve.copyWith(age: <span style="color:#66d9ef">null</span>);
+</span></span></code></pre></div><p>However, <code>age</code> will remain 30, because the <code>copyWith</code> method above only changes the value if the new value is <em>not</em> null.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dart" data-lang="dart"><span style="display:flex;"><span>print(steve.age); <span style="color:#75715e">// prints &#34;30&#34;, even after the copyWith call
+</span></span></span></code></pre></div><p>The <code>Option</code> type from Fpdart helps to address this issue. It&rsquo;s a wrapper around a value that can either be <code>Some</code> or <code>None</code>, which can be used instead of nullable types.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dart" data-lang="dart"><span style="display:flex;"><span><span style="color:#75715e">// Creating an Option with a value of `None`
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Option<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">String</span><span style="color:#f92672">&gt;</span> data <span style="color:#f92672">=</span> None();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Updating the value to `Some`
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>data <span style="color:#f92672">=</span> Some(<span style="color:#e6db74">&#39;Hello, world!&#39;</span>);
+</span></span></code></pre></div><p>If we were to use <code>Option</code> in the <code>Person</code> class above, we could change the <code>age</code> field to be of type <code>Option&lt;int&gt;</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-dart" data-lang="dart"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">String</span> name;
+</span></span><span style="display:flex; background-color:#3c3d38"><span>    <span style="color:#66d9ef">final</span> Option<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> age;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Person(<span style="color:#66d9ef">this</span>.name, [<span style="color:#66d9ef">this</span>.age <span style="color:#f92672">=</span> None()]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Next, we can add the <code>copyWith</code> method again, using the <code>Option</code> type:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-dart" data-lang="dart"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">String</span> name;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">final</span> Option<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> age;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Person(<span style="color:#66d9ef">this</span>.name, [<span style="color:#66d9ef">this</span>.age <span style="color:#f92672">=</span> None()]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex; background-color:#3c3d38"><span>    Person copyWith({<span style="color:#66d9ef">String</span><span style="color:#f92672">?</span> name, Option<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;?</span> age}) {
+</span></span><span style="display:flex; background-color:#3c3d38"><span>        <span style="color:#66d9ef">return</span> Person(
+</span></span><span style="display:flex; background-color:#3c3d38"><span>            name <span style="color:#f92672">??</span> <span style="color:#66d9ef">this</span>.name,
+</span></span><span style="display:flex; background-color:#3c3d38"><span>            age <span style="color:#f92672">??</span> <span style="color:#66d9ef">this</span>.age,
+</span></span><span style="display:flex; background-color:#3c3d38"><span>        );
+</span></span><span style="display:flex; background-color:#3c3d38"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Now, it is possible to change the age from a value to <code>None</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dart" data-lang="dart"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> steve <span style="color:#f92672">=</span> Person(<span style="color:#e6db74">&#39;Steve&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>steve <span style="color:#f92672">=</span> steve.copyWith(age: Some(<span style="color:#ae81ff">30</span>));
+</span></span><span style="display:flex;"><span>print(steve.age); <span style="color:#75715e">// prints &#34;Some(30)&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>steve <span style="color:#f92672">=</span> steve.copyWith(age: None());
+</span></span><span style="display:flex;"><span>print(steve.age); <span style="color:#75715e">// prints &#34;None&#34;
+</span></span></span></code></pre></div><p>To actually use the value contained in an <code>Option</code>, there are a few methods available:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dart" data-lang="dart"><span style="display:flex;"><span><span style="color:#66d9ef">final</span> option <span style="color:#f92672">=</span> Some(<span style="color:#ae81ff">5</span>); <span style="color:#75715e">// Implicit `Option&lt;int&gt;`
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Returns the value if it is `Some`, otherwise returns the default value
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Similar to the `??` operator
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">final</span> value <span style="color:#f92672">=</span> option.getOrElse(() <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">0</span>); <span style="color:#75715e">// value = 5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">final</span> triple <span style="color:#f92672">=</span> option.match(
+</span></span><span style="display:flex;"><span>    () <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">0</span>, <span style="color:#75715e">// Called if `None`
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    (value) <span style="color:#f92672">=&gt;</span> value <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span>, <span style="color:#75715e">// Called if `Some`
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>); <span style="color:#75715e">// triple = 15
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">final</span> nullable <span style="color:#f92672">=</span> option.toNullable(); <span style="color:#75715e">// nullable is an `int?` with a value of 5
+</span></span></span></code></pre></div><p><code>Option</code> can also be converted to an <code>Either</code>, another type from Fpdart (<a href="#either">explained in more detail below</a>):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dart" data-lang="dart"><span style="display:flex;"><span><span style="color:#75715e">// Converts to an `Either&lt;String, int&gt; with a value of `Right(5)`
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// If the value was `None`, the `Either` would be `Left(&#39;No value&#39;)`
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">final</span> either <span style="color:#f92672">=</span> option.toEither(() <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;No value&#39;</span>); 
+</span></span></code></pre></div><p>Many more methods can be found in the <a href="https://pub.dev/documentation/fpdart/latest/fpdart/Option-class.html">Fpdart docs</a>.</p>
+<h3 id="downsides">Downsides<a hidden class="anchor" aria-hidden="true" href="#downsides">#</a></h3>
+<p>Using <code>Option</code> can be a bit more verbose when compared to using nullable types. It adds a small amount of boilerplate and means you can not use the <code>??</code> operator to set a default value (though <code>getOrElse</code> is a similar alternative). In my experience, though, the benefits far outweigh the downsides.</p>
+<h2 id="either">Either<a hidden class="anchor" aria-hidden="true" href="#either">#</a></h2>
+<h3 id="error-handling-without-exceptions">Error handling without exceptions<a hidden class="anchor" aria-hidden="true" href="#error-handling-without-exceptions">#</a></h3>
+<p>Error handling in Dart is painful. The main problem for me is that it&rsquo;s unclear as to whether a function can throw an error or not unless you read the implementation or see it mentioned in the docs. Combined with the somewhat awkward syntax for <code>try</code>/<code>catch</code> blocks, it is far from a great experience.</p>
+<p><code>Either</code> is a type from Fpdart that can be used to handle errors in a more functional way. It&rsquo;s a wrapper around a value that can either be <code>Left</code> or <code>Right</code>, which can be used instead of throwing exceptions. Typically, <code>Left</code> is used to represent an error, and <code>Right</code> is used to represent a successful result.</p>
+<p>Let&rsquo;s say we have a function that can throw an error called <code>fetchFromDatabase</code>. Instead of just hoping the error is caught, we can wrap the result in an <code>Either</code>, where <code>Left</code> will be a string, used to represent an error, and <code>Right</code> will be an int, used to represent a successful result that was fetched from the database:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dart" data-lang="dart"><span style="display:flex;"><span>Either<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">String</span>, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> fetchFromDatabase() <span style="color:#66d9ef">async</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// This could be a firebase call, a network request, 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// or anything else that could throw an error
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> data <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> database.fetchData();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Assuming the data was successfully fetched, 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// we return it wrapped in `Right`
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> Right(data);
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">catch</span> (error) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// If an error was thrown, we return it wrapped in `Left`
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> Left(error.toString());
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>It&rsquo;s now very clear that <code>fetchFromDatabase</code> can throw an error, and it&rsquo;s also much easier to handle the with pattern matching:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dart" data-lang="dart"><span style="display:flex;"><span><span style="color:#66d9ef">final</span> result <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> fetchFromDatabase();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Pattern matching
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>result.match(
+</span></span><span style="display:flex;"><span>    (error) <span style="color:#f92672">=&gt;</span> print(error), <span style="color:#75715e">// Called if `Left`
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    (data) <span style="color:#f92672">=&gt;</span> print(<span style="color:#e6db74">&#39;Data found: </span><span style="color:#e6db74">$</span>data<span style="color:#e6db74">&#39;</span>), <span style="color:#75715e">// Called if `Right`
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>);
+</span></span></code></pre></div><p><code>Either</code> can also be converted to an <code>Option</code> (<a href="#option">explained in more detail above</a>):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dart" data-lang="dart"><span style="display:flex;"><span><span style="color:#66d9ef">final</span> either <span style="color:#f92672">=</span> Either<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">String</span>, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>.of(<span style="color:#ae81ff">5</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Converts to an `Option&lt;int&gt;` with a value of `Some(5)`
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// If the value was `Left`, the `Option` would be `None`,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// no matter what the value was
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">final</span> option <span style="color:#f92672">=</span> either.toOption(); 
+</span></span></code></pre></div><h3 id="downsides-1">Downsides<a hidden class="anchor" aria-hidden="true" href="#downsides-1">#</a></h3>
+<p>Due to exceptions being built into the language and found in many libraries, it can be difficult to be consistent with how you handle them when you introduce <code>Either</code>. It is possible to wrap the result of any throwing functions in an <code>Either</code>, but this will add more boilerplate to your code.</p>
+<h2 id="tuple">Tuple<a hidden class="anchor" aria-hidden="true" href="#tuple">#</a></h2>
+<h3 id="multiple-values-without-a-class">Multiple values without a class<a hidden class="anchor" aria-hidden="true" href="#multiple-values-without-a-class">#</a></h3>
+<p>Returning multiple values from a function can be accomplished by creating a convenience class, but this tends to add unneeded verbosity. <code>Tuple2</code> (because it holds 2 values) is a type from Fpdart that can be used to return multiple values from a function without creating a class.</p>
+<p>In this example, we are fetching data from a database, and we want to return the data and the time it took to fetch it. We can use <code>Tuple2</code> to do this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dart" data-lang="dart"><span style="display:flex;"><span>Tuple2<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, Duration<span style="color:#f92672">&gt;</span> fetchFromDatabase() <span style="color:#66d9ef">async</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">final</span> stopwatch <span style="color:#f92672">=</span> Stopwatch()..start();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This could be a firebase call, a network request, etc.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> data <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> database.fetchData();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    stopwatch.stop();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> Tuple2(data, stopwatch.elapsed);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The values can then be accessed using the <code>first</code> and <code>second</code> properties:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dart" data-lang="dart"><span style="display:flex;"><span><span style="color:#66d9ef">final</span> result <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> fetchFromDatabase();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(result.first); <span style="color:#75715e">// Prints the data
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>print(result.second); <span style="color:#75715e">// Prints the duration
+</span></span></span></code></pre></div><h3 id="downsides-2">Downsides<a hidden class="anchor" aria-hidden="true" href="#downsides-2">#</a></h3>
+<p>It can be unclear as to what the values represent, so it&rsquo;s best to use a class if you need named parameters. <code>Tuple2</code> is also limited to holding 2 values, so it&rsquo;s not a good fit for more complex use cases.</p>
+<p><em>Note that <a href="https://medium.com/dartlang/dart-3-alpha-f1458fb9d232">Dart 3</a> will introduce the <a href="https://github.com/dart-lang/language/blob/master/accepted/future-releases/records/records-feature-specification.md"><code>Record</code></a> type, which provides similar functionality to <code>Tuple2</code> but with more flexibility, including more than two values and named parameters.</em></p>
+<h2 id="the-rest">The Rest<a hidden class="anchor" aria-hidden="true" href="#the-rest">#</a></h2>
+<p>Fpdart includes over 20 types and extensions, only three of which have been covered here. While the other types certainly have uses, I haven&rsquo;t found many situations in which my code has been signifigantly improved. Either way (pun intended), you can view examples for all of the types in the <a href="https://pub.dev/documentation/fpdart/latest/fpdart/fpdart-library.html">Fpdart docs</a> and in the <a href="https://github.com/SandroMaglione/fpdart/tree/main/example">example folder</a> of the GitHub repository. 🐟</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://peterthesalmon.github.io/website">Peter Salmon</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

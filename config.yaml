@@ -1,0 +1,47 @@
+baseURL: 'https://peterthesalmon.github.io/website'
+languageCode: en-us
+title: Peter Salmon
+theme: PaperMod
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON # is necessary
+
+menu:
+    main:
+      - identifier: search
+        name: Search
+        url: /search
+
+        weight: 10
+
+params:
+  ShowCodeCopyButtons: true
+  Author: Peter Salmon
+  ShowPostNavLinks: true
+  editPost:
+    URL: "https://github.com/PeterTheSalmon/Website/tree/main/content"
+    Text: "Suggest Changes" # edit text
+    appendFilePath: true
+  showReadingTime: true
+  showWordCount: true
+  ShowBreadCrumbs: true
+  disableSpecial1stPost: true
+  UseHugoToc: true
+  showtoc: true
+  tocLevels: "1"
+  env: production
+
+  
+
+
+  # homeInfoParams:
+  #   Title: 'Looking for something?'
+  #   Content: 'Or just check out some of my latest posts below.'
+  # socialIcons: # optional
+  #   - name: "twitter"
+  #     url: "https://twitter.com/peterthesalmon"
+  #   - name: "github"
+  #     url: "https://github.com/peterthesalmon"
