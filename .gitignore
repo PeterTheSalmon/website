@@ -1,4 +1,11 @@
 /.DS_Store
 themes/.DS_Store
-themes/PaperMod
+
 .hugo_build.lock
+.gitignore
+themes/PaperMod/assets/css/.DS_Store
+themes/PaperMod/assets/.DS_Store
+themes/PaperMod/.DS_Store
+.DS_Store
+
+**/.DS_Store
