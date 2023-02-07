@@ -2,6 +2,7 @@ baseURL: 'https://peterthesalmon.github.io/website'
 languageCode: en-us
 title: Peter Salmon
 theme: PaperMod
+publishDir: docs
 
 outputs:
   home:
