@@ -1,10 +1,11 @@
 ---
-title: "Applications of Fpdart - functional programming with Flutter"
+title: "Applications of Fpdart"
+description: "Function Programming concepts with Dart and Flutter"
 date: 2023-02-01T16:00:00-08:00
 draft: false
 ---
 
-Functional programming has been garnering more attention in recent years, for good reason: it's a tool for writing more predicatable and readable code. I won't go into the details here - many, *many*, articles have covered that already. If you are looking for an intro, though, [this reddit comment](https://www.reddit.com/r/explainlikeimfive/comments/msmot/comment/c33msb8/?utm_source=share&utm_medium=web2x&context=3) may prove helpful.
+Functional programming has been garnering more attention in recent years, and for good reason: it's a tool for writing more predicatable and readable code. I won't go into the details here - many, *many*, articles have covered that already. If you are looking for an intro, though, [this reddit comment](https://www.reddit.com/r/explainlikeimfive/comments/msmot/comment/c33msb8/?utm_source=share&utm_medium=web2x&context=3) may prove helpful.
 
 This post explains how I've incorporated aspects of functional programming into my Flutter projects with [Fpdart](https://pub.dev/packages/fpdart). Each section includes an example of how a feature from the package can be used, as well as any potential downsides and considerations.
 
