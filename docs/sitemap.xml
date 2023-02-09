@@ -2,19 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://peterthesalmon.github.io/website/posts/applications-of-fpdart/</loc>
+    <loc>https://petersalmon.dev/posts/applications-of-fpdart/</loc>
     <lastmod>2023-02-01T16:00:00-08:00</lastmod>
   </url><url>
-    <loc>https://peterthesalmon.github.io/website/</loc>
+    <loc>https://petersalmon.dev/</loc>
     <lastmod>2023-02-01T16:00:00-08:00</lastmod>
   </url><url>
-    <loc>https://peterthesalmon.github.io/website/posts/</loc>
+    <loc>https://petersalmon.dev/posts/</loc>
     <lastmod>2023-02-01T16:00:00-08:00</lastmod>
   </url><url>
-    <loc>https://peterthesalmon.github.io/website/categories/</loc>
+    <loc>https://petersalmon.dev/categories/</loc>
   </url><url>
-    <loc>https://peterthesalmon.github.io/website/search/</loc>
+    <loc>https://petersalmon.dev/search/</loc>
   </url><url>
-    <loc>https://peterthesalmon.github.io/website/tags/</loc>
+    <loc>https://petersalmon.dev/tags/</loc>
   </url>
 </urlset>
